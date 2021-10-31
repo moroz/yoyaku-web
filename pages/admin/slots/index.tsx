@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { useListSlotsQuery } from "../../api/queries/slots";
-import { formatTimestamp } from "../../helpers/TimeHelpers";
+import { useListSlotsQuery } from "../../../api/queries/slots";
+import { useSignOut } from "../../../api/sessionsClient";
+import AdminLayout from "../../../components/AdminLayout";
+import { formatTimestamp } from "../../../helpers/TimeHelpers";
 
-const Home = () => {
+const SlotsList = () => {
+  const signOut = useSignOut();
   const { data } = useListSlotsQuery();
   return (
-    <div className="container">
+    <AdminLayout>
       <h1 className="title">Time slots</h1>
       {data ? (
         <table className="table is-bordered">
@@ -28,8 +31,11 @@ const Home = () => {
       <Link href="/slots/new">
         <a className="button is-primary">New time slot</a>
       </Link>
-    </div>
+      <button onClick={signOut} className="button is-danger">
+        Sign out
+      </button>
+    </AdminLayout>
   );
 };
 
-export default Home;
+export default SlotsList;
