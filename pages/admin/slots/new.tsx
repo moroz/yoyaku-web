@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { SlotParams } from "../../interfaces/slots";
-import DateTimeInput from "../../components/DateTimeInput";
-import { useCreateSlotMutation } from "../../api/mutations/slots";
+import { SlotParams } from "../../../interfaces/slots";
+import DateTimeInput from "../../../components/DateTimeInput";
+import { useCreateSlotMutation } from "../../../api/mutations/slots";
 import dayjs from "dayjs";
-import CompositeDateTime from "../../helpers/CompositeDateTime";
+import CompositeDateTime from "../../../helpers/CompositeDateTime";
 import { useEffect } from "react";
 
 const NewSlot = () => {

@@ -1,9 +1,19 @@
 import Head from "next/head";
+import Link from "next/link";
+import { useMemo } from "react";
 import { useListSlotsQuery } from "../api/queries/slots";
-import { formatTimestamp } from "../helpers/TimeHelpers";
+import PickSlot from "../components/slots/PickSlot";
+import { groupByDate } from "../helpers/SlotHelpers";
+import { formatDate, formatTimestamp } from "../helpers/TimeHelpers";
 
 export default function Home() {
   const { data } = useListSlotsQuery();
+  const slots = data?.slots;
+  const grouped = useMemo(() => {
+    if (!slots) return {};
+    return groupByDate(slots);
+  }, [slots]);
+
   return (
     <div className="container">
       <Head>
@@ -12,12 +22,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className="title">Dostępne terminy</h1>
-      {data?.slots.map((slot) => (
-        <li key={slot.id}>
-          {formatTimestamp(slot.startTime)}&ndash;
-          {formatTimestamp(slot.endTime)}
-        </li>
+      <h1 className="title">Rezerwacja na kroplówki witaminowe</h1>
+      <h2 className="title is-3">Dostępne terminy</h2>
+      {Object.keys(grouped).map((date) => (
+        <div key={date}>
+          <h3 className="subtitle">{formatDate(date)}</h3>
+          {grouped[date].map((slot) => (
+            <PickSlot slot={slot} key={slot.id} />
+          ))}
+        </div>
       ))}
     </div>
   );

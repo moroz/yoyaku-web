@@ -28,7 +28,7 @@ const SlotsList = () => {
           </tbody>
         </table>
       ) : null}
-      <Link href="/slots/new">
+      <Link href="/admin/slots/new">
         <a className="button is-primary">New time slot</a>
       </Link>
       <button onClick={signOut} className="button is-danger">
