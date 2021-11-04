@@ -1,12 +1,12 @@
-import React from "react";
+import React, { HTMLProps } from "react";
 
-interface Props {
+interface Props extends HTMLProps<HTMLButtonElement> {
   children?: React.ReactNode;
 }
 
-const SubmitButton = ({ children }: Props) => {
+const SubmitButton = ({ type, children, ...rest }: Props) => {
   return (
-    <button type="submit" className="button is-primary">
+    <button type="submit" className="button is-primary" {...rest}>
       {children ?? "Submit"}
     </button>
   );

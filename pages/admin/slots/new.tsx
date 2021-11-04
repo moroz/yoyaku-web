@@ -6,9 +6,15 @@ import { useCreateSlotMutation } from "../../../api/mutations/slots";
 import dayjs from "dayjs";
 import CompositeDateTime from "../../../helpers/CompositeDateTime";
 import { useEffect } from "react";
+import { LOCAL_TZ } from "../../../helpers/TimeHelpers";
 
 const NewSlot = () => {
-  const defaultStartTime = dayjs().add(1, "day").hour(12).minute(0).second(0);
+  const defaultStartTime = dayjs()
+    .tz(LOCAL_TZ)
+    .add(1, "day")
+    .hour(9)
+    .minute(0)
+    .second(0);
   const { register, handleSubmit, watch, setValue } = useForm<SlotParams>({
     defaultValues: {
       startTime: new CompositeDateTime(defaultStartTime),
